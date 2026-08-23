@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lighthouse Run Club — Canton & Woodstock, GA</title>
+  <meta name="description" content="Cherokee County's run club. Run Together. Rise Together. Find Your Light in the Horizon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0D0D0D;
+      --navy: #1C2B3A;
+      --slate: #2E2E2E;
+      --bone: #F7F5F0;
+      --white: #FFFFFF;
+      --mid: #888888;
+      --light: #CCCCCC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(28,43,58,0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Lighthouse SVG logo */
+    .hero-logo {
+      width: 180px;
+      height: 180px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.2s;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.4s;
+    }
+
+    .hero-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(42px, 8vw, 88px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.5s;
+    }
+
+    .hero-headline-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(20px, 4vw, 40px);
+      font-weight: 400;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.6s;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: var(--light);
+      letter-spacing: 1px;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.7s;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 48px;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.9s;
+    }
+
+    .hero-cta:hover {
+      background: var(--bone);
+      transform: translateY(-2px);
+    }
+
+    .hero-location {
+      margin-top: 32px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--mid);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1s;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--slate), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 48px);
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .section-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2vw, 22px);
+      color: var(--light);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    /* ── MISSION ── */
+    .mission {
+      text-align: center;
+      padding: 80px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .mission-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(22px, 3vw, 36px);
+      color: var(--white);
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+
+    .mission-attr {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ── RUNS GRID ── */
+    .runs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 56px;
+    }
+
+    .run-card {
+      background: #111111;
+      padding: 40px 36px;
+      border: 1px solid #1a1a1a;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .run-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 0;
+      background: var(--white);
+      transition: height 0.3s ease;
+    }
+
+    .run-card:hover::before { height: 100%; }
+    .run-card:hover { background: #141414; border-color: #2a2a2a; }
+
+    .run-day {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+
+    .run-time {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .run-location {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--light);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .run-vibe {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .run-post {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #222;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .run-post span {
+      color: var(--light);
+    }
+
+    /* ── JOIN SECTION ── */
+    .join-section {
+      background: var(--navy);
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .join-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .join-section .section-title {
+      margin-bottom: 20px;
+    }
+
+    .join-section .section-body {
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .join-cta {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 20px 56px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .join-cta:hover {
+      background: var(--bone);
+      transform: translateY(-2px);
+    }
+
+    .join-note {
+      margin-top: 24px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+
+    /* ── VALUES ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      margin-top: 56px;
+    }
+
+    .value-item {
+      border-top: 1px solid #222;
+      padding-top: 28px;
+    }
+
+    .value-number {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+
+    .value-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .value-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .footer-links a {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .runs-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .hero-logo { width: 140px; height: 140px; }
+      .footer-links { flex-direction: column; gap: 16px; align-items: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; opacity: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">LRC</a>
+    <ul class="nav-links">
+      <li><a href="#runs">Our Runs</a></li>
+      <li><a href="#values">Values</a></li>
+      <li><a href="#join">Join Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- Inline SVG Logo -->
+    <svg class="hero-logo" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lighthouse Run Club logo">
+      <!-- Light beams -->
+      <line x1="100" y1="72" x2="28" y2="42" stroke="white" stroke-width="0.8" opacity="0.35"/>
+      <line x1="100" y1="72" x2="18" y2="60" stroke="white" stroke-width="0.6" opacity="0.2"/>
+      <line x1="100" y1="72" x2="172" y2="42" stroke="white" stroke-width="0.8" opacity="0.35"/>
+      <line x1="100" y1="72" x2="182" y2="60" stroke="white" stroke-width="0.6" opacity="0.2"/>
+      <!-- Tower body -->
+      <path d="M88 148 L92 90 L108 90 L112 148 Z" fill="white"/>
+      <!-- Mid section -->
+      <rect x="91" y="84" width="18" height="8" rx="1" fill="white"/>
+      <!-- Lantern room -->
+      <rect x="93" y="68" width="14" height="18" rx="1" fill="white"/>
+      <!-- Cap -->
+      <polygon points="100,56 93,68 107,68" fill="white"/>
+      <!-- Base line -->
+      <line x1="80" y1="148" x2="120" y2="148" stroke="white" stroke-width="1.5"/>
+      <!-- Arc text: LIGHTHOUSE -->
+      <path id="topArc" d="M 30,100 A 70,70 0 0,1 170,100" fill="none"/>
+      <text font-family="Montserrat, sans-serif" font-size="14" font-weight="700" fill="white" letter-spacing="4">
+        <textPath href="#topArc" startOffset="50%" text-anchor="middle">LIGHTHOUSE</textPath>
+      </text>
+      <!-- Arc text: RUN CLUB -->
+      <path id="bottomArc" d="M 38,110 A 62,62 0 0,0 162,110" fill="none"/>
+      <text font-family="Montserrat, sans-serif" font-size="11" font-weight="600" fill="white" letter-spacing="5">
+        <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">RUN CLUB</textPath>
+      </text>
+    </svg>
+
+    <p class="hero-eyebrow">Cherokee County, Georgia</p>
+    <h1 class="hero-headline">Lighthouse</h1>
+    <p class="hero-headline-sub">Run Club</p>
+    <p class="hero-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</p>
+    <a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener" class="hero-cta">Join the Community</a>
+    <p class="hero-location">Canton &nbsp;·&nbsp; Woodstock &nbsp;·&nbsp; GA</p>
+  </div>
+
+  <!-- MISSION STRIP -->
+  <div class="mission">
+    <p class="mission-quote">"The lighthouse doesn't run toward you. It stands still, shines its light, and guides you home. That's what we're building here."</p>
+    <p class="mission-attr">— Mark, Founder</p>
+  </div>
+
+  <!-- RUNS -->
+  <section id="runs">
+    <span class="section-label">When We Run</span>
+    <h2 class="section-title">Weekly Schedule</h2>
+    <p class="section-body">Three runs a week. Two cities. All levels welcome. Show up and find your people.</p>
+
+    <div class="runs-grid">
+      <div class="run-card">
+        <p class="run-day">Tuesday</p>
+        <p class="run-time">6:30 PM</p>
+        <p class="run-location">The Mill at Etowah, Canton</p>
+        <p class="run-vibe">Mid-week reset · All paces</p>
+        <p class="run-post">After → <span>Bizarre Coffee</span></p>
+      </div>
+      <div class="run-card">
+        <p class="run-day">Saturday</p>
+        <p class="run-time">8:00 AM</p>
+        <p class="run-location">Downtown Woodstock</p>
+        <p class="run-vibe">Flagship run · High energy</p>
+        <p class="run-post">After → <span>Bizarre Coffee / Eden</span></p>
+      </div>
+      <div class="run-card">
+        <p class="run-day">Sunday</p>
+        <p class="run-time">9:00 AM</p>
+        <p class="run-location">Downtown Woodstock</p>
+        <p class="run-vibe">Recovery pace · Good vibes</p>
+        <p class="run-post">After → <span>Eden</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <div class="join-section" id="join">
+    <div class="join-inner">
+      <span class="section-label">Be Part of Something</span>
+      <h2 class="section-title">Run With Us</h2>
+      <p class="section-body">No experience required. No pace requirement. Just show up. The community does the rest.</p>
+      <a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener" class="join-cta">Join the Group Chat</a>
+      <p class="join-note">Free to join · Canton & Woodstock, GA</p>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <section id="values">
+    <span class="section-label">Who We Are</span>
+    <h2 class="section-title">Our Values</h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <p class="value-number">01</p>
+        <p class="value-title">Everyone Belongs</p>
+        <p class="value-body">All paces. All backgrounds. All experience levels. Walking is running. Showing up is enough.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">02</p>
+        <p class="value-title">Be the Energy</p>
+        <p class="value-body">Positivity is contagious. So is negativity. We choose to be the energy we want to run with.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">03</p>
+        <p class="value-title">Encourage Relentlessly</p>
+        <p class="value-body">Someone just finished their first mile. Celebrate it like it's your own. We rise by lifting others.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">04</p>
+        <p class="value-title">Share Your Journey</p>
+        <p class="value-body">Post your runs. Share your struggles. Be real. Authenticity is what makes this community special.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">Lighthouse Run Club</p>
+    <p class="footer-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</p>
+    <ul class="footer-links">
+      <li><a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener">Join GroupMe</a></li>
+      <li><a href="https://instagram.com/thelighthouserunclub" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://tiktok.com/@thelighthouserunclub" target="_blank" rel="noopener">TikTok</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Lighthouse Run Club · Canton & Woodstock, Georgia</p>
+  </footer>
+
+</body>
+</html>
