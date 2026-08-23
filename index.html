@@ -252,12 +252,55 @@
       color: var(--mid);
     }
 
+    /* ── COMING SOON BANNER ── */
+    .coming-soon-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-left: 3px solid var(--white);
+      padding: 14px 24px;
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+
+    .coming-soon-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--white);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .coming-soon-text {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .runs-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--mid);
+      margin-top: 16px;
+      max-width: 560px;
+    }
+
     /* ── RUNS GRID ── */
     .runs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2px;
-      margin-top: 56px;
+      margin-top: 48px;
     }
 
     .run-card {
@@ -369,6 +412,35 @@
     .join-cta:hover {
       background: var(--bone);
       transform: translateY(-2px);
+    }
+
+    .join-cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 48px;
+      border: 1px solid rgba(255,255,255,0.25);
+      margin-top: 16px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .join-cta-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    .join-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
 
     .join-note {
@@ -539,6 +611,7 @@
     <p class="hero-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</p>
     <a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener" class="hero-cta">Join the Community</a>
     <p class="hero-location">Canton &nbsp;·&nbsp; Woodstock &nbsp;·&nbsp; GA</p>
+
   </div>
 
   <!-- MISSION STRIP -->
@@ -550,30 +623,36 @@
   <!-- RUNS -->
   <section id="runs">
     <span class="section-label">When We Run</span>
-    <h2 class="section-title">Weekly Schedule</h2>
-    <p class="section-body">Three runs a week. Two cities. All levels welcome. Show up and find your people.</p>
+    <h2 class="section-title">Our Runs</h2>
+    <p class="section-body">We're currently finalizing our first run date and weekly schedule. Something special is being built — and it'll be worth the wait.</p>
+
+    <div class="coming-soon-banner">
+      <div class="coming-soon-dot"></div>
+      <span class="coming-soon-text">First Run Date Coming Soon</span>
+    </div>
+    <p class="runs-note">Join our GroupMe community below to be the first to know when dates are announced and to stay in the loop on everything Lighthouse Run Club.</p>
 
     <div class="runs-grid">
       <div class="run-card">
         <p class="run-day">Tuesday</p>
-        <p class="run-time">6:30 PM</p>
-        <p class="run-location">The Mill at Etowah, Canton</p>
+        <p class="run-time">Evening</p>
+        <p class="run-location">Canton, GA</p>
         <p class="run-vibe">Mid-week reset · All paces</p>
-        <p class="run-post">After → <span>Bizarre Coffee</span></p>
+        <p class="run-post">Date → <span>TBD</span></p>
       </div>
       <div class="run-card">
         <p class="run-day">Saturday</p>
-        <p class="run-time">8:00 AM</p>
-        <p class="run-location">Downtown Woodstock</p>
+        <p class="run-time">Morning</p>
+        <p class="run-location">Canton & Woodstock, GA</p>
         <p class="run-vibe">Flagship run · High energy</p>
-        <p class="run-post">After → <span>Bizarre Coffee / Eden</span></p>
+        <p class="run-post">Date → <span>TBD</span></p>
       </div>
       <div class="run-card">
         <p class="run-day">Sunday</p>
-        <p class="run-time">9:00 AM</p>
-        <p class="run-location">Downtown Woodstock</p>
+        <p class="run-time">Morning</p>
+        <p class="run-location">Woodstock, GA</p>
         <p class="run-vibe">Recovery pace · Good vibes</p>
-        <p class="run-post">After → <span>Eden</span></p>
+        <p class="run-post">Date → <span>TBD</span></p>
       </div>
     </div>
   </section>
@@ -584,7 +663,10 @@
       <span class="section-label">Be Part of Something</span>
       <h2 class="section-title">Run With Us</h2>
       <p class="section-body">No experience required. No pace requirement. Just show up. The community does the rest.</p>
-      <a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener" class="join-cta">Join the Group Chat</a>
+      <div class="join-buttons">
+        <a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener" class="join-cta">Join the Group Chat</a>
+        <a href="https://strava.app.link/CLeZrEfrQ5b" target="_blank" rel="noopener" class="join-cta-secondary">Join Our Strava Club</a>
+      </div>
       <p class="join-note">Free to join · Canton & Woodstock, GA</p>
     </div>
   </div>
@@ -596,23 +678,38 @@
     <div class="values-grid">
       <div class="value-item">
         <p class="value-number">01</p>
-        <p class="value-title">Everyone Belongs</p>
-        <p class="value-body">All paces. All backgrounds. All experience levels. Walking is running. Showing up is enough.</p>
+        <p class="value-title">Lead With Light</p>
+        <p class="value-body">We treat people the way we want to be treated. Respect, kindness, encouragement, and inclusion come first. Every person should leave a Lighthouse run feeling a little better than when they arrived.</p>
       </div>
       <div class="value-item">
         <p class="value-number">02</p>
-        <p class="value-title">Be the Energy</p>
-        <p class="value-body">Positivity is contagious. So is negativity. We choose to be the energy we want to run with.</p>
+        <p class="value-title">Bring the Energy</p>
+        <p class="value-body">We show up with a positive, can-do attitude. Some runs will feel effortless. Others will test us. Either way, we choose optimism, effort, and gratitude for the opportunity to move together.</p>
       </div>
       <div class="value-item">
         <p class="value-number">03</p>
-        <p class="value-title">Encourage Relentlessly</p>
-        <p class="value-body">Someone just finished their first mile. Celebrate it like it's your own. We rise by lifting others.</p>
+        <p class="value-title">Become Through the Miles</p>
+        <p class="value-body">Running is about more than pace or distance. We use it to challenge ourselves, build confidence, strengthen discipline, and discover what we are capable of becoming.</p>
       </div>
       <div class="value-item">
         <p class="value-number">04</p>
-        <p class="value-title">Share Your Journey</p>
-        <p class="value-body">Post your runs. Share your struggles. Be real. Authenticity is what makes this community special.</p>
+        <p class="value-title">Find Your Light</p>
+        <p class="value-body">There will always be moments when the finish feels far away. We learn to look toward the light in the distance, dig deeper, and keep moving forward. We believe every person in this community has more potential inside them than they may realize.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">05</p>
+        <p class="value-title">Lift the People Around You</p>
+        <p class="value-body">We don't just chase our own goals. We encourage the person beside us, celebrate each other's progress, and help one another keep going. When one person gets stronger, the community gets stronger.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">06</p>
+        <p class="value-title">Create Together</p>
+        <p class="value-body">We welcome photos, videos, storytelling, creativity, and collaboration. Members are encouraged to create content together, share their journeys, celebrate the community, and help tell the story of Lighthouse Run Club.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-number">07</p>
+        <p class="value-title">Keep Moving Forward</p>
+        <p class="value-body">We don't expect perfection. We value consistency, courage, curiosity, and progress. Whether you're running your first mile or chasing a goal you once thought was impossible — the objective is the same: keep moving forward.</p>
       </div>
     </div>
   </section>
@@ -623,8 +720,9 @@
     <p class="footer-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</p>
     <ul class="footer-links">
       <li><a href="https://groupme.com/join_group/116832116/lssNA32u" target="_blank" rel="noopener">Join GroupMe</a></li>
+      <li><a href="https://strava.app.link/CLeZrEfrQ5b" target="_blank" rel="noopener">Strava</a></li>
       <li><a href="https://instagram.com/thelighthouserunclub" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://tiktok.com/@thelighthouserunclub" target="_blank" rel="noopener">TikTok</a></li>
+      <li><a href="https://www.tiktok.com/@lighthouserunclub" target="_blank" rel="noopener">TikTok</a></li>
     </ul>
     <p class="footer-copy">© 2025 Lighthouse Run Club · Canton & Woodstock, Georgia</p>
   </footer>
