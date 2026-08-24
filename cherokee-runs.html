@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cherokee County Runs — Find Your Run Club</title>
+  <meta name="description" content="Every run club and group run in Canton and Woodstock, Georgia. All in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0D0D0D;
+      --navy: #1C2B3A;
+      --slate: #2E2E2E;
+      --bone: #F7F5F0;
+      --white: #FFFFFF;
+      --mid: #888888;
+      --light: #CCCCCC;
+      --border: #1E1E1E;
+      --card: #111111;
+      --featured: #0F1E2A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.97);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+
+    .nav-icon {
+      width: 32px; height: 32px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-title { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--white); display: block; }
+    .nav-sub { font-size: 10px; letter-spacing: 2px; color: var(--mid); text-transform: uppercase; display: block; }
+
+    .filter-pills { display: flex; gap: 6px; }
+
+    .pill {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--mid);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 8px 16px; cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill:hover, .pill.active {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 72px 40px 56px;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .eyebrow::after { content: ''; width: 60px; height: 1px; background: var(--border); }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: -1px; line-height: 1;
+      color: var(--white); margin-bottom: 16px;
+    }
+
+    h1 span { color: var(--mid); }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(17px, 2vw, 22px);
+      color: var(--light); margin-bottom: 36px;
+    }
+
+    .stats { display: flex; gap: 48px; flex-wrap: wrap; }
+
+    .stat-n { font-size: 32px; font-weight: 800; color: var(--white); line-height: 1; }
+    .stat-l { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-top: 4px; }
+
+    /* DAY TABS */
+    .day-tabs {
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex; gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .day-tabs::-webkit-scrollbar { display: none; }
+
+    .day-tab {
+      background: transparent; border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--mid);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 16px 18px; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .day-tab:hover { color: var(--white); }
+    .day-tab.active { color: var(--white); border-bottom-color: var(--white); }
+
+    /* MAIN */
+    .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    /* FEATURED */
+    .featured {
+      background: var(--featured);
+      border: 1px solid #1C3A55;
+      border-left: 3px solid var(--white);
+      padding: 32px 36px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .featured-badge {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: #7EB8D4; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .featured-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%; background: #7EB8D4;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .featured-name {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: -0.5px; color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .featured-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 18px;
+    }
+
+    .run-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .run-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--light);
+    }
+
+    .featured-btn {
+      display: inline-block;
+      background: var(--white); color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px; white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .featured-btn:hover { background: var(--bone); transform: translateY(-1px); }
+
+    /* SECTION LABEL */
+    .sec-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+      margin-bottom: 56px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px 28px 24px;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative; overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 2px; height: 0;
+      background: var(--white);
+      transition: height 0.3s ease;
+    }
+
+    .card:hover::before { height: 100%; }
+    .card:hover { background: #141414; border-color: #2a2a2a; }
+
+    .card.lrc {
+      border-color: #1C3A55;
+      background: #0C1820;
+    }
+
+    .card-city {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 10px;
+    }
+
+    .card-name {
+      font-size: 15px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--white); margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; color: var(--mid);
+      line-height: 1.5; margin-bottom: 18px;
+    }
+
+    .card-runs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+
+    .run-row { display: flex; align-items: baseline; gap: 10px; }
+
+    .run-day {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--mid); min-width: 76px; flex-shrink: 0;
+    }
+
+    .run-info { font-size: 12px; font-weight: 500; color: var(--light); }
+
+    .card-foot {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-meta { font-size: 10px; font-weight: 600; letter-spacing: 1px; color: #555; text-transform: uppercase; }
+
+    .card-link {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .card-link:hover { border-color: var(--white); }
+
+    /* SCHEDULE */
+    .schedule { margin-bottom: 56px; }
+
+    .sched-day-block { margin-bottom: 40px; }
+
+    .sched-day-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--mid); margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sched-row {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      gap: 20px; align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #161616;
+    }
+
+    .sched-row:last-child { border-bottom: none; }
+
+    .sched-time { font-size: 22px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; line-height: 1; }
+    .sched-freq { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-top: 4px; }
+
+    .sched-club { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--white); margin-bottom: 4px; }
+    .sched-loc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--mid); }
+
+    .sched-link {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--mid); text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .sched-link:hover { color: var(--white); }
+
+    .sched-row.lrc-row .sched-club { color: #7EB8D4; }
+    .sched-row.lrc-row .sched-time { color: rgba(255,255,255,0.4); }
+
+    /* PROMO */
+    .promo {
+      background: var(--navy);
+      padding: 56px 48px;
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px; align-items: center;
+    }
+
+    .promo-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+
+    .promo-name {
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800; text-transform: uppercase;
+      letter-spacing: -0.5px; color: var(--white); margin-bottom: 8px;
+    }
+
+    .promo-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 18px;
+      color: rgba(255,255,255,0.4); margin-bottom: 20px;
+    }
+
+    .promo-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .promo-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 14px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .promo-btn {
+      display: inline-block;
+      background: var(--white); color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 3px; text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 32px; white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .promo-btn:hover { background: var(--bone); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+
+    .foot-note { font-size: 10px; letter-spacing: 1px; color: #333; text-transform: uppercase; }
+    .foot-credit { font-size: 10px; letter-spacing: 1px; color: #333; text-transform: uppercase; }
+    .foot-credit a { color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .foot-credit a:hover { color: var(--white); }
+
+
+    /* RUN TODAY BANNER */
+    .run-today {
+      background: #0A1A0A;
+      border: 1px solid #1A3A1A;
+      border-left: 3px solid #4CAF50;
+      padding: 28px 36px;
+      margin-bottom: 32px;
+    }
+    .run-today-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .run-today-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4CAF50;
+      animation: pulse 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .run-today-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: #4CAF50;
+    }
+    .run-today-day {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--mid); margin-left: auto;
+    }
+    .run-today-empty {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 17px; color: var(--mid);
+    }
+    .today-runs { display: flex; flex-direction: column; gap: 0; }
+    .today-run-row {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 16px; align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #141414;
+    }
+    .today-run-row:last-child { border-bottom: none; }
+    .today-time {
+      font-size: 18px; font-weight: 800;
+      color: var(--white); letter-spacing: -0.5px; line-height: 1;
+    }
+    .today-club {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--white); margin-bottom: 3px;
+    }
+    .today-loc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px; color: var(--mid);
+    }
+    .today-link {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #4CAF50; text-decoration: none; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .today-link:hover { opacity: 0.7; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .filter-pills { display: none; }
+      .hero { padding: 48px 20px 36px; }
+      .day-tabs { padding: 0 20px; }
+      .main { padding: 32px 20px 60px; }
+      .featured { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .sched-row { grid-template-columns: 1fr; gap: 6px; }
+      .sched-link { display: none; }
+      .promo { grid-template-columns: 1fr; padding: 36px 24px; }
+      footer { flex-direction: column; padding: 24px 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="white" stroke-width="1"/>
+        <rect x="6.5" y="5" width="3" height="5" rx="0.5" fill="white"/>
+        <rect x="6" y="3.5" width="4" height="2" rx="0.3" fill="white"/>
+        <polygon points="8,1.5 6,3.5 10,3.5" fill="white"/>
+        <line x1="8" y1="3.5" x2="3.5" y2="6" stroke="white" stroke-width="0.6" opacity="0.5"/>
+        <line x1="8" y1="3.5" x2="12.5" y2="6" stroke="white" stroke-width="0.6" opacity="0.5"/>
+        <line x1="5" y1="10" x2="11" y2="10" stroke="white" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <div>
+      <span class="nav-title">Cherokee County Runs</span>
+      <span class="nav-sub">Canton & Woodstock, GA</span>
+    </div>
+  </a>
+  <div class="filter-pills">
+    <button class="pill active" onclick="filterCity('all',this)">All</button>
+    <button class="pill" onclick="filterCity('canton',this)">Canton</button>
+    <button class="pill" onclick="filterCity('woodstock',this)">Woodstock</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Your Local Running Guide</p>
+  <h1>Find Your <span>Run.</span></h1>
+  <p class="hero-sub">Every run club in Cherokee County, all in one place.</p>
+  <div class="stats">
+    <div><div class="stat-n">10</div><div class="stat-l">Run Clubs</div></div>
+    <div><div class="stat-n">20+</div><div class="stat-l">Weekly Runs</div></div>
+    <div><div class="stat-n">2</div><div class="stat-l">Cities</div></div>
+    <div><div class="stat-n">7</div><div class="stat-l">Days a Week</div></div>
+  </div>
+</div>
+
+
+<div class="run-today" id="run-today-banner">
+  <div class="run-today-header">
+    <div class="run-today-dot"></div>
+    <span class="run-today-label">Running Today</span>
+    <span class="run-today-day" id="today-day-label"></span>
+  </div>
+  <div id="today-runs-container">
+    <p class="run-today-empty">Loading today's runs...</p>
+  </div>
+</div>
+
+<div class="day-tabs">
+  <button class="day-tab active" onclick="filterDay('all',this)">All Days</button>
+  <button class="day-tab" onclick="filterDay('monday',this)">Monday</button>
+  <button class="day-tab" onclick="filterDay('tuesday',this)">Tuesday</button>
+  <button class="day-tab" onclick="filterDay('wednesday',this)">Wednesday</button>
+  <button class="day-tab" onclick="filterDay('thursday',this)">Thursday</button>
+  <button class="day-tab" onclick="filterDay('friday',this)">Friday</button>
+  <button class="day-tab" onclick="filterDay('saturday',this)">Saturday</button>
+  <button class="day-tab" onclick="filterDay('sunday',this)">Sunday</button>
+</div>
+
+<main class="main">
+
+  <!-- FEATURED -->
+  <div class="featured" id="featured">
+    <div>
+      <div class="featured-badge">New in Cherokee County · 2026</div>
+      <div class="featured-name">Lighthouse Run Club</div>
+      <div class="featured-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</div>
+      <div class="run-pills">
+        <span class="run-pill">Tue · Canton · TBD</span>
+        <span class="run-pill">Thu · Woodstock · TBD</span>
+        <span class="run-pill">Sat · Woodstock · TBD</span>
+        <span class="run-pill">Sun · Canton · TBD</span>
+        <span class="run-pill">All Paces Welcome</span>
+        <span class="run-pill">Free to Join</span>
+      </div>
+    </div>
+    <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="featured-btn">Join Now</a>
+  </div>
+
+  <!-- ALL CLUBS VIEW -->
+  <div id="clubs-view">
+    <p class="sec-label">All Run Clubs</p>
+    <div class="grid" id="club-grid">
+
+      <!-- LIGHTHOUSE RUN CLUB -->
+      <div class="card lrc" data-city="both">
+        <p class="card-city" style="color:#4A8FAA;">Canton & Woodstock · New 2026</p>
+        <p class="card-name">Lighthouse Run Club</p>
+        <p class="card-desc">Cherokee County's newest run club. Community-first, all paces, four weekly runs. A space of authenticity and genuine positivity.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Tuesday</span><span class="run-info">Evening · Canton · Coming Soon</span></div>
+          <div class="run-row"><span class="run-day">Thursday</span><span class="run-info">Evening · Woodstock · Coming Soon</span></div>
+          <div class="run-row"><span class="run-day">Saturday</span><span class="run-info">Morning · Woodstock · Coming Soon</span></div>
+          <div class="run-row"><span class="run-day">Sunday</span><span class="run-info">Morning · Canton · Coming Soon</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta" style="color:#4A8FAA;">Join the Community</span>
+          <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="card-link">Join Now →</a>
+        </div>
+      </div>
+
+      <!-- CHEROKEE RUN CLUB -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Cherokee Run Club</p>
+        <p class="card-desc">The established run club of Cherokee County with multiple weekly runs across Canton and Woodstock.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Monday</span><span class="run-info">6:30 PM · Etowah River Park · 4 Miles</span></div>
+          <div class="run-row"><span class="run-day">Wednesday</span><span class="run-info">6:30 PM · Noonday Creek Trailhead, Woodstock</span></div>
+          <div class="run-row"><span class="run-day">Thursday</span><span class="run-info">6:30 PM · Dupree Park · Fartlek</span></div>
+          <div class="run-row"><span class="run-day">Saturday</span><span class="run-info">7:00 AM · Canton · 7+ Miles</span></div>
+          <div class="run-row"><span class="run-day">Saturday</span><span class="run-info">8:00 AM · Noonday · 5K–10K</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">2.7K Followers</span>
+          <a href="https://instagram.com/cherokeerunclub" target="_blank" rel="noopener" class="card-link">Instagram →</a>
+        </div>
+      </div>
+
+      <!-- RUN & HOLLER -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Run & Holler Social Club</p>
+        <p class="card-desc">Social run group hosted at The Holler — Canton's outdoor beer garden and running store on West Main Street. All paces welcome.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Tuesday</span><span class="run-info">6:30 PM · The Holler, 301 W Main St</span></div>
+          <div class="run-row"><span class="run-day">Thursday</span><span class="run-info">6:30 PM · The Holler, 301 W Main St</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">Post-run drinks</span>
+          <a href="https://thehollercanton.com" target="_blank" rel="noopener" class="card-link">Website →</a>
+        </div>
+      </div>
+
+      <!-- CANTON RUNNING COLLECTIVE -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Canton Running Collective</p>
+        <p class="card-desc">Two weekly group runs anchored at Reformation Brewery in Canton and The Mill on Etowah. Energetic, community-driven runs.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Wednesday</span><span class="run-info">6:30 PM · Reformation Brewery, Canton</span></div>
+          <div class="run-row"><span class="run-day">Friday</span><span class="run-info">6:00 AM · The Mill on Etowah parking lot</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">Local Favorite</span>
+          <a href="https://instagram.com/cantonrunningcollective" target="_blank" rel="noopener" class="card-link">Instagram →</a>
+        </div>
+      </div>
+
+      <!-- CANTON DONUT RUN CLUB -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Canton Donut Run Club</p>
+        <p class="card-desc">Early morning Friday run club starting from The Mill on Etowah. A fun, social way to kick off your Friday.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Friday</span><span class="run-info">6:00 AM · The Mill on Etowah, Canton</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">Early Morning Run</span>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="card-link">Find Online →</a>
+        </div>
+      </div>
+
+      <!-- FOOTHILLS RUNNING CLUB -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Foothills Running Club</p>
+        <p class="card-desc">Group runs and walks every Saturday morning from the Canton YMCA and Heritage Park area. All welcome, all paces.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Saturday</span><span class="run-info">7:30 AM · Canton YMCA / Heritage Park</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">All paces & walks</span>
+          <a href="http://www.foothillsrunningclub.com" target="_blank" rel="noopener" class="card-link">Website →</a>
+        </div>
+      </div>
+
+      <!-- FLEET FEET CANTON -->
+      <div class="card" data-city="canton">
+        <p class="card-city">Canton, GA</p>
+        <p class="card-name">Fleet Feet Canton Weekly Run</p>
+        <p class="card-desc">Weekly group run hosted by Fleet Feet Canton in partnership with Cherokee Run Club at Etowah River Park.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Monday</span><span class="run-info">6:30 PM · Etowah River Park, Canton</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">Fleet Feet Canton</span>
+          <a href="https://www.fleetfeet.com/s/canton/weekly-runs" target="_blank" rel="noopener" class="card-link">Details →</a>
+        </div>
+      </div>
+
+      <!-- THE RENEGADES -->
+      <div class="card" data-city="woodstock">
+        <p class="card-city">Woodstock, GA</p>
+        <p class="card-name">The Renegades Run Club</p>
+        <p class="card-desc">Woodstock's community run club meeting at 251 East Main Street. Supportive, encouraging environment for all levels.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Tuesday</span><span class="run-info">6:30 PM · 251 E Main St, Woodstock · 5K</span></div>
+          <div class="run-row"><span class="run-day">Saturday</span><span class="run-info">7:30 AM · 251 E Main St, Woodstock · 5K</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">633 Followers</span>
+          <a href="https://instagram.com/renegadesrunclub" target="_blank" rel="noopener" class="card-link">Instagram →</a>
+        </div>
+      </div>
+
+      <!-- A BREW RUN RUN -->
+      <div class="card" data-city="woodstock">
+        <p class="card-city">Woodstock, GA</p>
+        <p class="card-name">A Brew Run Run</p>
+        <p class="card-desc">Weekly Thursday group run starting at the Noonday Trail Head behind Reformation Brewery on Elm Street in Downtown Woodstock.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Thursday</span><span class="run-info">6:45 PM · Noonday Trailhead, Elm St, Woodstock</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">444 Followers</span>
+          <a href="https://facebook.com/abrewrunrun" target="_blank" rel="noopener" class="card-link">Facebook →</a>
+        </div>
+      </div>
+
+      <!-- CHEROKEE RUNNING CLUB -->
+      <div class="card" data-city="woodstock">
+        <p class="card-city">Woodstock, GA</p>
+        <p class="card-name">Cherokee Running Club</p>
+        <p class="card-desc">RRCA-affiliated running club based in Woodstock serving the broader Cherokee County community.</p>
+        <div class="card-runs">
+          <div class="run-row"><span class="run-day">Schedule</span><span class="run-info">Check their page for current schedule</span></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-meta">RRCA Member Club</span>
+          <a href="https://cherokee-running-club-woodstock-ga-rrca-club.runnerspace.com" target="_blank" rel="noopener" class="card-link">Details →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- WEEKLY SCHEDULE -->
+    <p class="sec-label">Full Weekly Schedule</p>
+
+    <div class="schedule" id="schedule">
+
+      <!-- MONDAY -->
+      <div class="sched-day-block" data-day="monday">
+        <p class="sched-day-label">Monday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Monday</div></div>
+          <div><div class="sched-club">Cherokee Run Club × Fleet Feet</div><div class="sched-loc">Etowah River Park · Canton · 4 Miles</div></div>
+          <a href="https://www.fleetfeet.com/s/canton/weekly-runs" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="sched-day-block" data-day="tuesday">
+        <p class="sched-day-label">Tuesday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Tuesday</div></div>
+          <div><div class="sched-club">Run & Holler Social Club</div><div class="sched-loc">The Holler · 301 W Main St, Canton</div></div>
+          <a href="https://thehollercanton.com" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="woodstock">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Tuesday</div></div>
+          <div><div class="sched-club">The Renegades Run Club</div><div class="sched-loc">251 E Main St, Woodstock · 5K</div></div>
+          <a href="https://instagram.com/renegadesrunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row lrc-row" data-city="both">
+          <div><div class="sched-time">TBD</div><div class="sched-freq">Coming Soon</div></div>
+          <div><div class="sched-club">Lighthouse Run Club</div><div class="sched-loc">Canton · Evening Run · All Paces Welcome</div></div>
+          <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="sched-link">Join →</a>
+        </div>
+      </div>
+
+      <!-- WEDNESDAY -->
+      <div class="sched-day-block" data-day="wednesday">
+        <p class="sched-day-label">Wednesday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Wednesday</div></div>
+          <div><div class="sched-club">Canton Running Collective</div><div class="sched-loc">Reformation Brewery · Canton</div></div>
+          <a href="https://instagram.com/cantonrunningcollective" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="woodstock">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Wednesday</div></div>
+          <div><div class="sched-club">Cherokee Run Club</div><div class="sched-loc">Noonday Creek Trailhead · Woodstock</div></div>
+          <a href="https://instagram.com/cherokeerunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+      </div>
+
+      <!-- THURSDAY -->
+      <div class="sched-day-block" data-day="thursday">
+        <p class="sched-day-label">Thursday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Thursday</div></div>
+          <div><div class="sched-club">Run & Holler Social Club</div><div class="sched-loc">The Holler · 301 W Main St, Canton</div></div>
+          <a href="https://thehollercanton.com" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:30 PM</div><div class="sched-freq">Every Thursday</div></div>
+          <div><div class="sched-club">Cherokee Run Club</div><div class="sched-loc">Dupree Park · Canton · Fartlek Workout</div></div>
+          <a href="https://instagram.com/cherokeerunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="woodstock">
+          <div><div class="sched-time">6:45 PM</div><div class="sched-freq">Every Thursday</div></div>
+          <div><div class="sched-club">A Brew Run Run</div><div class="sched-loc">Noonday Trailhead · Reformation Woodstock · Elm St</div></div>
+          <a href="https://facebook.com/abrewrunrun" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row lrc-row" data-city="both">
+          <div><div class="sched-time">TBD</div><div class="sched-freq">Coming Soon</div></div>
+          <div><div class="sched-club">Lighthouse Run Club</div><div class="sched-loc">Downtown Woodstock · Social Run · All Paces</div></div>
+          <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="sched-link">Join →</a>
+        </div>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="sched-day-block" data-day="friday">
+        <p class="sched-day-label">Friday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:00 AM</div><div class="sched-freq">Every Friday</div></div>
+          <div><div class="sched-club">Canton Donut Run Club</div><div class="sched-loc">The Mill on Etowah · Canton</div></div>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="sched-link">Find Online →</a>
+        </div>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">6:00 AM</div><div class="sched-freq">Every Friday</div></div>
+          <div><div class="sched-club">Canton Running Collective</div><div class="sched-loc">The Mill on Etowah parking lot · Canton</div></div>
+          <a href="https://instagram.com/cantonrunningcollective" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+      </div>
+
+      <!-- SATURDAY -->
+      <div class="sched-day-block" data-day="saturday">
+        <p class="sched-day-label">Saturday</p>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">7:00 AM</div><div class="sched-freq">Every Saturday</div></div>
+          <div><div class="sched-club">Cherokee Run Club</div><div class="sched-loc">Canton · 7+ Miles</div></div>
+          <a href="https://instagram.com/cherokeerunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">7:30 AM</div><div class="sched-freq">Every Saturday</div></div>
+          <div><div class="sched-club">Foothills Running Club</div><div class="sched-loc">Canton YMCA / Heritage Park · All paces & walks</div></div>
+          <a href="http://www.foothillsrunningclub.com" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="woodstock">
+          <div><div class="sched-time">7:30 AM</div><div class="sched-freq">Every Saturday</div></div>
+          <div><div class="sched-club">The Renegades Run Club</div><div class="sched-loc">251 E Main St, Woodstock · 5K</div></div>
+          <a href="https://instagram.com/renegadesrunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row" data-city="canton">
+          <div><div class="sched-time">8:00 AM</div><div class="sched-freq">Every Saturday</div></div>
+          <div><div class="sched-club">Cherokee Run Club</div><div class="sched-loc">Noonday · Canton · 5K–10K</div></div>
+          <a href="https://instagram.com/cherokeerunclub" target="_blank" rel="noopener" class="sched-link">Details →</a>
+        </div>
+        <div class="sched-row lrc-row" data-city="both">
+          <div><div class="sched-time">TBD</div><div class="sched-freq">Coming Soon</div></div>
+          <div><div class="sched-club">Lighthouse Run Club</div><div class="sched-loc">Downtown Woodstock · Flagship Run · Post-run Social</div></div>
+          <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="sched-link">Join →</a>
+        </div>
+      </div>
+
+      <!-- SUNDAY -->
+      <div class="sched-day-block" data-day="sunday">
+        <p class="sched-day-label">Sunday</p>
+        <div class="sched-row lrc-row" data-city="both">
+          <div><div class="sched-time">TBD</div><div class="sched-freq">Coming Soon</div></div>
+          <div><div class="sched-club">Lighthouse Run Club</div><div class="sched-loc">Canton · Recovery Run · Post-run Bizarre Coffee</div></div>
+          <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="sched-link">Join →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PROMO -->
+    <div class="promo">
+      <div>
+        <p class="promo-eyebrow">New to Cherokee County · 2026</p>
+        <p class="promo-name">Lighthouse Run Club</p>
+        <p class="promo-tagline">Run Together. Rise Together. Find Your Light in the Horizon.</p>
+        <div class="promo-pills">
+          <span class="promo-pill">Tuesday · Canton</span>
+          <span class="promo-pill">Thursday · Woodstock</span>
+          <span class="promo-pill">Saturday · Woodstock</span>
+          <span class="promo-pill">Sunday · Canton</span>
+          <span class="promo-pill">All Paces Welcome</span>
+          <span class="promo-pill">Free to Join</span>
+        </div>
+      </div>
+      <a href="https://lighthouserunclub.com" target="_blank" rel="noopener" class="promo-btn">Join the Club</a>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="foot-note">Updated August 2026 · Cherokee County, Georgia</p>
+  <p class="foot-credit">A community resource by <a href="https://lighthouserunclub.com" target="_blank" rel="noopener">Lighthouse Run Club</a></p>
+</footer>
+
+<script>
+  let activeCity = 'all';
+  let activeDay = 'all';
+
+  // All runs data — single source of truth
+  const allRuns = [
+    // MONDAY
+    { day: 'monday', time: '6:30 PM', club: 'Cherokee Run Club × Fleet Feet', loc: 'Etowah River Park, Canton · 4 Miles', city: 'canton', url: 'https://www.fleetfeet.com/s/canton/weekly-runs', lrc: false },
+    // TUESDAY
+    { day: 'tuesday', time: '6:30 PM', club: 'Run & Holler Social Club', loc: 'The Holler · 301 W Main St, Canton', city: 'canton', url: 'https://thehollercanton.com', lrc: false },
+    { day: 'tuesday', time: '6:30 PM', club: 'The Renegades Run Club', loc: '251 E Main St, Woodstock · 5K', city: 'woodstock', url: 'https://instagram.com/renegadesrunclub', lrc: false },
+    { day: 'tuesday', time: 'TBD', club: 'Lighthouse Run Club', loc: 'Canton · Evening Run · All Paces Welcome', city: 'both', url: 'https://lighthouserunclub.com', lrc: true },
+    // WEDNESDAY
+    { day: 'wednesday', time: '6:30 PM', club: 'Canton Running Collective', loc: 'Reformation Brewery, Canton', city: 'canton', url: 'https://instagram.com/cantonrunningcollective', lrc: false },
+    { day: 'wednesday', time: '6:30 PM', club: 'Cherokee Run Club', loc: 'Noonday Creek Trailhead, Woodstock', city: 'woodstock', url: 'https://instagram.com/cherokeerunclub', lrc: false },
+    // THURSDAY
+    { day: 'thursday', time: '6:30 PM', club: 'Run & Holler Social Club', loc: 'The Holler · 301 W Main St, Canton', city: 'canton', url: 'https://thehollercanton.com', lrc: false },
+    { day: 'thursday', time: '6:30 PM', club: 'Cherokee Run Club', loc: 'Dupree Park, Canton · Fartlek Workout', city: 'canton', url: 'https://instagram.com/cherokeerunclub', lrc: false },
+    { day: 'thursday', time: '6:45 PM', club: 'A Brew Run Run', loc: 'Noonday Trailhead · Reformation Woodstock', city: 'woodstock', url: 'https://facebook.com/abrewrunrun', lrc: false },
+    { day: 'thursday', time: 'TBD', club: 'Lighthouse Run Club', loc: 'Downtown Woodstock · Social Run · All Paces', city: 'both', url: 'https://lighthouserunclub.com', lrc: true },
+    // FRIDAY
+    { day: 'friday', time: '6:00 AM', club: 'Canton Donut Run Club', loc: 'The Mill on Etowah, Canton', city: 'canton', url: 'https://instagram.com', lrc: false },
+    { day: 'friday', time: '6:00 AM', club: 'Canton Running Collective', loc: 'The Mill on Etowah parking lot, Canton', city: 'canton', url: 'https://instagram.com/cantonrunningcollective', lrc: false },
+    // SATURDAY
+    { day: 'saturday', time: '7:00 AM', club: 'Cherokee Run Club', loc: 'Canton · 7+ Miles', city: 'canton', url: 'https://instagram.com/cherokeerunclub', lrc: false },
+    { day: 'saturday', time: '7:30 AM', club: 'Foothills Running Club', loc: 'Canton YMCA / Heritage Park · All paces & walks', city: 'canton', url: 'http://www.foothillsrunningclub.com', lrc: false },
+    { day: 'saturday', time: '7:30 AM', club: 'The Renegades Run Club', loc: '251 E Main St, Woodstock · 5K', city: 'woodstock', url: 'https://instagram.com/renegadesrunclub', lrc: false },
+    { day: 'saturday', time: '8:00 AM', club: 'Cherokee Run Club', loc: 'Noonday, Canton · 5K–10K', city: 'canton', url: 'https://instagram.com/cherokeerunclub', lrc: false },
+    { day: 'saturday', time: 'TBD', club: 'Lighthouse Run Club', loc: 'Downtown Woodstock · Flagship Run · Post-run Social', city: 'both', url: 'https://lighthouserunclub.com', lrc: true },
+    // SUNDAY
+    { day: 'sunday', time: 'TBD', club: 'Lighthouse Run Club', loc: 'Canton · Recovery Run · Post-run Bizarre Coffee', city: 'both', url: 'https://lighthouserunclub.com', lrc: true },
+  ];
+
+  const dayNames = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+  const dayLabels = { sunday:'Sunday', monday:'Monday', tuesday:'Tuesday', wednesday:'Wednesday', thursday:'Thursday', friday:'Friday', saturday:'Saturday' };
+
+  // Build Run Today banner on page load
+  function buildRunToday() {
+    const today = dayNames[new Date().getDay()];
+    const label = document.getElementById('today-day-label');
+    const container = document.getElementById('today-runs-container');
+    if (label) label.textContent = dayLabels[today];
+
+    const todayRuns = allRuns.filter(r => r.day === today);
+
+    if (!todayRuns.length) {
+      container.innerHTML = '<p class="run-today-empty">No scheduled group runs today — check back tomorrow or browse the full schedule below.</p>';
+      return;
+    }
+
+    const html = '<div class="today-runs">' + todayRuns.map(r => `
+      <div class="today-run-row">
+        <div class="today-time">${r.time}</div>
+        <div>
+          <div class="today-club"${r.lrc ? ' style="color:#7EB8D4;"' : ''}>${r.club}</div>
+          <div class="today-loc">${r.loc}</div>
+        </div>
+        <a href="${r.url}" target="_blank" rel="noopener" class="today-link"${r.lrc ? ' style="color:#7EB8D4;"' : ''}>Details →</a>
+      </div>
+    `).join('') + '</div>';
+
+    container.innerHTML = html;
+
+    // Auto-highlight today tab
+    document.querySelectorAll('.day-tab').forEach(btn => {
+      if (btn.textContent.toLowerCase() === today) {
+        btn.style.color = '#4CAF50';
+        btn.style.borderBottomColor = '#4CAF50';
+      }
+    });
+  }
+
+  function filterCity(city, btn) {
+    activeCity = city;
+    document.querySelectorAll('.filter-pills .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function filterDay(day, btn) {
+    activeDay = day;
+    document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Reset today highlight if it was set
+    document.querySelectorAll('.day-tab').forEach(b => {
+      if (!b.classList.contains('active')) {
+        b.style.color = '';
+        b.style.borderBottomColor = '';
+      }
+    });
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const featured = document.getElementById('featured');
+    const todayBanner = document.getElementById('run-today-banner');
+
+    // Filter club cards
+    document.querySelectorAll('#club-grid .card').forEach(card => {
+      const city = card.dataset.city;
+      const cityMatch = activeCity === 'all' || city === activeCity || city === 'both';
+      card.classList.toggle('hidden', !cityMatch);
+    });
+
+    // Filter schedule rows
+    document.querySelectorAll('.sched-row').forEach(row => {
+      const city = row.dataset.city || 'both';
+      const cityMatch = activeCity === 'all' || city === activeCity || city === 'both';
+      row.classList.toggle('hidden', !cityMatch);
+    });
+
+    // Filter day blocks
+    document.querySelectorAll('.sched-day-block').forEach(block => {
+      if (activeDay === 'all') {
+        block.style.display = '';
+      } else {
+        block.style.display = block.dataset.day === activeDay ? '' : 'none';
+      }
+    });
+
+    // Hide featured and today banner when filtering by day
+    if (featured) featured.style.display = activeDay !== 'all' ? 'none' : '';
+    if (todayBanner) todayBanner.style.display = activeDay !== 'all' ? 'none' : '';
+
+    // Hide day blocks that have all rows hidden
+    document.querySelectorAll('.sched-day-block').forEach(block => {
+      if (block.style.display === 'none') return;
+      const visibleRows = block.querySelectorAll('.sched-row:not(.hidden)');
+      block.style.display = visibleRows.length === 0 ? 'none' : '';
+    });
+  }
+
+  // Init
+  buildRunToday();
+</script>
+
+</body>
+</html>
