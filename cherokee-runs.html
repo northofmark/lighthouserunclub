@@ -515,10 +515,13 @@
       <span class="nav-sub">Canton & Woodstock, GA</span>
     </div>
   </a>
-  <div class="filter-pills">
-    <button class="pill active" onclick="filterCity('all',this)">All</button>
-    <button class="pill" onclick="filterCity('canton',this)">Canton</button>
-    <button class="pill" onclick="filterCity('woodstock',this)">Woodstock</button>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="https://lighthouserunclub.com" style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--mid)'">← Home</a>
+    <div class="filter-pills">
+      <button class="pill active" onclick="filterCity('all',this)">All</button>
+      <button class="pill" onclick="filterCity('canton',this)">Canton</button>
+      <button class="pill" onclick="filterCity('woodstock',this)">Woodstock</button>
+    </div>
   </div>
 </nav>
 
@@ -974,39 +977,54 @@
 
   function filterDay(day, btn) {
     activeDay = day;
-    document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    // Reset today highlight if it was set
     document.querySelectorAll('.day-tab').forEach(b => {
-      if (!b.classList.contains('active')) {
-        b.style.color = '';
-        b.style.borderBottomColor = '';
-      }
+      b.classList.remove('active');
+      b.style.color = '';
+      b.style.borderBottomColor = '';
     });
+    btn.classList.add('active');
     applyFilters();
+    // Scroll to schedule section when a day is selected
+    if (day !== 'all') {
+      setTimeout(() => {
+        const sched = document.querySelector('.schedule');
+        if (sched) sched.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }
 
   function applyFilters() {
     const featured = document.getElementById('featured');
     const todayBanner = document.getElementById('run-today-banner');
+    const clubGrid = document.getElementById('club-grid');
+    const secLabel = clubGrid ? clubGrid.previousElementSibling : null;
 
-    // Filter club cards
+    // When a specific day is selected, hide club grid and show only schedule
+    const daySelected = activeDay !== 'all';
+
+    // Show/hide club grid and its label
+    if (clubGrid) clubGrid.style.display = daySelected ? 'none' : '';
+    if (secLabel && secLabel.classList.contains('sec-label')) {
+      secLabel.style.display = daySelected ? 'none' : '';
+    }
+
+    // Filter club cards (for when grid is visible)
     document.querySelectorAll('#club-grid .card').forEach(card => {
       const city = card.dataset.city;
       const cityMatch = activeCity === 'all' || city === activeCity || city === 'both';
       card.classList.toggle('hidden', !cityMatch);
     });
 
-    // Filter schedule rows
+    // Filter schedule rows by city
     document.querySelectorAll('.sched-row').forEach(row => {
       const city = row.dataset.city || 'both';
       const cityMatch = activeCity === 'all' || city === activeCity || city === 'both';
       row.classList.toggle('hidden', !cityMatch);
     });
 
-    // Filter day blocks
+    // Filter day blocks — show only the selected day
     document.querySelectorAll('.sched-day-block').forEach(block => {
-      if (activeDay === 'all') {
+      if (!daySelected) {
         block.style.display = '';
       } else {
         block.style.display = block.dataset.day === activeDay ? '' : 'none';
@@ -1014,14 +1032,14 @@
     });
 
     // Hide featured and today banner when filtering by day
-    if (featured) featured.style.display = activeDay !== 'all' ? 'none' : '';
-    if (todayBanner) todayBanner.style.display = activeDay !== 'all' ? 'none' : '';
+    if (featured) featured.style.display = daySelected ? 'none' : '';
+    if (todayBanner) todayBanner.style.display = daySelected ? 'none' : '';
 
-    // Hide day blocks that have all rows hidden
+    // Hide day blocks where all rows are hidden by city filter
     document.querySelectorAll('.sched-day-block').forEach(block => {
       if (block.style.display === 'none') return;
       const visibleRows = block.querySelectorAll('.sched-row:not(.hidden)');
-      block.style.display = visibleRows.length === 0 ? 'none' : '';
+      if (visibleRows.length === 0) block.style.display = 'none';
     });
   }
 
